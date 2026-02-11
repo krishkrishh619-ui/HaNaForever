@@ -6,33 +6,8 @@
 <title>For ❤️ Navya ❤️</title>
 
 <style>
+/* ====== Page Styling ====== */
 body {
-<!-- Background Music -->
-<audio id="background-music" autoplay loop>
-  <source src="song.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<!-- Mute/Unmute Button -->
-<button id="music-toggle" onclick="toggleMusic()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
-  Mute/Unmute
-</button>
-
-<!-- JavaScript for volume and toggle -->
-<script>
-  const music = document.getElementById('background-music');
-  music.volume = 0.2; // Set initial volume to 20%
-
-  function toggleMusic() {
-    music.muted = !music.muted;
-    document.getElementById('music-toggle').innerText = music.muted ? 'Unmute' : 'Mute';
-  }
-
-  // Update button text on load
-  document.getElementById('music-toggle').innerText = music.muted ? 'Unmute' : 'Mute';
-</script>
-
-
     margin: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg,#ffd1dc,#ffe4ec);
@@ -70,6 +45,55 @@ button {
 
 .hidden { display: none; }
 
+#music-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 10000;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#music-toggle:hover { background-color: #45a049; }
+
+/* Overlay for autoplay-friendly music */
+#music-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 9999;
+    text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+#skip-overlay {
+    padding: 12px 24px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff6b6b;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+#skip-overlay:hover { background-color: #ff4b4b; }
+
 @media(max-width:600px){
     h1 { font-size: 1.8rem; }
 }
@@ -78,6 +102,21 @@ button {
 
 <body>
 
+<!-- ====== MUSIC INTEGRATION ====== -->
+<audio id="background-music" loop>
+    <source src="song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<div id="music-overlay">
+    🎵 Click Anywhere to Play Music
+    <button id="skip-overlay">Skip</button>
+</div>
+
+<button id="music-toggle">Mute</button>
+<!-- ====== END MUSIC INTEGRATION ====== -->
+
+<!-- ====== PAGE CONTENT ====== -->
 <div class="container" id="page1">
     <h1>Hey Navvi My Love & Life Line ❤️</h1>
     <p>I made something special just for you…</p>
@@ -96,11 +135,12 @@ button {
     <h1>Yaaay ❤️🥰</h1>
     <p>I knew it 😄</p>
     <p>Baby, I love you forever… until my last breath ❤️</p>
-    <p>My SweetHeart cutie-pie my love line  and my forever</p>
-
+    <p>My SweetHeart cutie-pie my love line and my forever</p>
 </div>
+<!-- ====== END PAGE CONTENT ====== -->
 
 <script>
+// ====== Page Navigation ======
 function nextPage(){
     document.getElementById("page1").classList.add("hidden");
     document.getElementById("page2").classList.remove("hidden");
@@ -116,6 +156,43 @@ function moveNo(){
     btn.style.top = Math.random()*70 + "%";
     btn.style.left = Math.random()*70 + "%";
 }
+
+// ====== Music Control ======
+const music = document.getElementById('background-music');
+const overlay = document.getElementById('music-overlay');
+const toggleBtn = document.getElementById('music-toggle');
+const skipBtn = document.getElementById('skip-overlay');
+
+music.volume = 0.2;
+music.muted = false;
+
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+function startMusic() {
+    overlay.style.opacity = 0;
+    setTimeout(() => overlay.style.display = 'none', 500);
+    music.play().catch(err => {
+        console.log("Music play blocked, user interaction needed");
+    });
+}
+
+overlay.addEventListener('click', startMusic);
+skipBtn.addEventListener('click', startMusic);
+
+// Auto-hide overlay on mobile after 3 seconds
+setTimeout(() => {
+    if(isMobile){
+        overlay.style.opacity = 0;
+        setTimeout(()=> overlay.style.display='none',500);
+    }
+    music.play().catch(err=>{});
+},3000);
+
+// Mute/Unmute button
+toggleBtn.addEventListener('click', ()=>{
+    music.muted = !music.muted;
+    toggleBtn.innerText = music.muted ? 'Unmute' : 'Mute';
+});
 </script>
 
 </body>
