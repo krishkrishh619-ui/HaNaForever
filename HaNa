@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Navya ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ffd1dc,#ffe4ec);
+    text-align: center;
+    color: #b30059;
+}
+
+.container {
+    padding: 40px 20px;
+}
+
+h1 { font-size: 2.2rem; }
+p { font-size: 1.2rem; }
+
+button {
+    border: none;
+    padding: 14px 28px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+#yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+#no {
+    background: white;
+    color: #ff4d6d;
+    border: 2px solid #ff4d6d;
+    position: absolute;
+}
+
+.hidden { display: none; }
+
+@media(max-width:600px){
+    h1 { font-size: 1.8rem; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="page1">
+    <h1>Hey Navya ❤️</h1>
+    <p>I made something special just for you…</p>
+    <p>I love you sooooooooo much 💖</p>
+    <button onclick="nextPage()">Open it 💌</button>
+</div>
+
+<div class="container hidden" id="page2">
+    <h1>Navya ❤️</h1>
+    <p>I love you so much until my last breath 💞</p>
+    <p>You are my happiness, my peace, my everything ✨</p>
+
+    <h1>Will you be my Valentine?</h1>
+
+    <button id="yes" onclick="yesClicked()">YES ❤️</button>
+    <button id="no" onmouseover="moveNo()">NO 💔</button>
+</div>
+
+<div class="container hidden" id="page3">
+    <h1>Yaaay ❤️🥰</h1>
+    <p>I knew it 😄</p>
+    <p>Navya, I love you forever… until my last breath ❤️</p>
+</div>
+
+<script>
+function nextPage(){
+    document.getElementById("page1").classList.add("hidden");
+    document.getElementById("page2").classList.remove("hidden");
+}
+
+function yesClicked(){
+    document.getElementById("page2").classList.add("hidden");
+    document.getElementById("page3").classList.remove("hidden");
+}
+
+function moveNo(){
+    const btn = document.getElementById("no");
+    btn.style.top = Math.random()*70 + "%";
+    btn.style.left = Math.random()*70 + "%";
+}
+</script>
+
+</body>
+</html>
